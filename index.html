@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101218">
+    <meta name="description" content="A calm, responsive space to track your food and workouts with Gymni.">
+    <title>Gymni — Your day, in rhythm</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%237e72ff'/%3E%3Cpath d='M11 22h5l3-9 4 15 3-8h4' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./config.js"></script>
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#view-overview" data-go="overview" aria-label="Gymni home">
+          <span class="brand-mark" aria-hidden="true">g</span>
+          <span>gymni<span class="brand-period">.</span></span>
+        </a>
+        <p class="sidebar-caption">YOUR SPACE</p>
+        <nav class="nav-list">
+          <button class="nav-link is-active" data-view="overview" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">◫</span> Overview
+          </button>
+          <button class="nav-link" data-view="log">
+            <span class="nav-icon" aria-hidden="true">＋</span> Add a log
+          </button>
+          <button class="nav-link" data-view="activity">
+            <span class="nav-icon" aria-hidden="true">↗</span> Activity
+          </button>
+        </nav>
+        <div class="sidebar-note">
+          <span class="note-spark" aria-hidden="true">✦</span>
+          <p>Small steps add up.<br><strong>Keep showing up.</strong></p>
+        </div>
+        <div class="sidebar-footer">
+          <span class="connection-dot" id="sidebar-connection-dot"></span>
+          <span id="sidebar-connection">Connecting to your data</span>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div class="mobile-brand">
+            <span class="brand-mark" aria-hidden="true">g</span>
+            <span>gymni<span class="brand-period">.</span></span>
+          </div>
+          <div class="topbar-date" id="today-label"></div>
+          <div class="connection-pill" id="connection-pill" role="status" aria-live="polite">
+            <span class="connection-dot"></span>
+            <span id="connection-label">Connecting</span>
+          </div>
+        </header>
+
+        <main class="main-content">
+          <section class="view is-visible" id="view-overview" aria-labelledby="overview-title">
+            <div class="page-heading">
+              <div>
+                <p class="eyebrow">YOUR DAILY CHECK-IN</p>
+                <h1 id="overview-title">Your day, in rhythm<span class="heading-dot">.</span></h1>
+                <p class="heading-subtitle">A little awareness goes a long way. How are you feeling today?</p>
+              </div>
+              <button class="button button-primary heading-action" data-go="log">
+                <span aria-hidden="true">＋</span> Add a log
+              </button>
+            </div>
+
+            <div class="metric-grid" aria-label="Today's summary">
+              <article class="metric-card metric-food">
+                <div class="metric-top">
+                  <span class="metric-label">Food energy</span>
+                  <span class="metric-icon" aria-hidden="true">↗</span>
+                </div>
+                <p class="metric-value"><span id="calories-in">—</span><small>kcal</small></p>
+                <p class="metric-foot"><span class="metric-dot"></span> Logged today</p>
+              </article>
+              <article class="metric-card metric-workout">
+                <div class="metric-top">
+                  <span class="metric-label">Movement</span>
+                  <span class="metric-icon" aria-hidden="true">⌁</span>
+                </div>
+                <p class="metric-value"><span id="calories-out">—</span><small>kcal</small></p>
+                <p class="metric-foot"><span class="metric-dot"></span> Workout energy</p>
+              </article>
+              <article class="metric-card metric-protein">
+                <div class="metric-top">
+                  <span class="metric-label">Protein</span>
+                  <span class="metric-icon" aria-hidden="true">◌</span>
+                </div>
+                <p class="metric-value"><span id="protein-total">—</span><small>g</small></p>
+                <p class="metric-foot"><span class="metric-dot"></span> From food logs</p>
+              </article>
+              <article class="metric-card metric-entries">
+                <div class="metric-top">
+                  <span class="metric-label">Check-ins</span>
+                  <span class="metric-icon" aria-hidden="true">✳</span>
+                </div>
+                <p class="metric-value"><span id="entry-count">—</span><small>logs</small></p>
+                <p class="metric-foot"><span class="metric-dot"></span> Food & movement</p>
+              </article>
+            </div>
+
+            <div class="overview-grid">
+              <article class="panel trend-panel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="eyebrow">A GENTLE LOOK BACK</p>
+                    <h2>Last 7 days</h2>
+                  </div>
+                  <span class="chart-key"><i></i> Food energy</span>
+                </div>
+                <div class="week-chart" id="week-chart" aria-label="Food energy logged over the last seven days"></div>
+                <p class="chart-caption">Calories from food logs. No targets, just your own pattern.</p>
+              </article>
+
+              <article class="panel recent-panel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="eyebrow">FRESH FROM YOUR LOG</p>
+                    <h2>Recent check-ins</h2>
+                  </div>
+                  <button class="text-button" data-go="activity">See all <span aria-hidden="true">→</span></button>
+                </div>
+                <div class="entry-list compact-list" id="recent-list"></div>
+                <div class="empty-state" id="recent-empty" hidden>
+                  <span aria-hidden="true">✦</span>
+                  <p>Your story starts with one small check-in.</p>
+                  <button class="text-button" data-go="log">Add your first log →</button>
+                </div>
+              </article>
+            </div>
+            <p class="data-note">Your logs are stored by your Gymni backend. Estimates are for personal tracking, not medical advice.</p>
+          </section>
+
+          <section class="view" id="view-log" aria-labelledby="log-title" hidden>
+            <div class="page-heading">
+              <div>
+                <p class="eyebrow">A MOMENT FOR YOU</p>
+                <h1 id="log-title">Add a check-in<span class="heading-dot">.</span></h1>
+                <p class="heading-subtitle">Capture what you ate or how you moved. You can edit it later.</p>
+              </div>
+            </div>
+            <div class="form-layout">
+              <article class="panel log-panel">
+                <div class="type-switch" role="tablist" aria-label="Type of check-in">
+                  <button type="button" class="type-tab is-selected" id="food-tab" role="tab" aria-selected="true" aria-controls="food-fields" data-type="food">
+                    <span aria-hidden="true">◒</span> Food
+                  </button>
+                  <button type="button" class="type-tab" id="workout-tab" role="tab" aria-selected="false" aria-controls="workout-fields" data-type="workout">
+                    <span aria-hidden="true">⌁</span> Movement
+                  </button>
+                </div>
+                <form id="log-form">
+                  <input type="hidden" id="record-id">
+                  <div class="form-intro">
+                    <h2 id="form-heading">What did you enjoy?</h2>
+                    <p id="form-description">Add a meal or snack, just as it was.</p>
+                  </div>
+                  <div class="form-fields" id="food-fields" role="tabpanel" aria-labelledby="food-tab">
+                    <label class="field field-wide">
+                      <span>Meal or snack</span>
+                      <input id="food-title" name="title" type="text" maxlength="160" placeholder="e.g. Avocado toast" required>
+                    </label>
+                    <label class="field">
+                      <span>Meal type</span>
+                      <select id="food-type" name="type">
+                        <option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span>Calories <small>kcal</small></span>
+                      <input id="food-calories" name="calories" type="number" min="0" max="100000" step="1" placeholder="420" required>
+                    </label>
+                    <label class="field">
+                      <span>Protein <small>g</small></span>
+                      <input id="food-protein" name="protein" type="number" min="0" max="10000" step="0.1" placeholder="20">
+                    </label>
+                    <label class="field">
+                      <span>Carbs <small>g</small></span>
+                      <input id="food-carbs" name="carbs" type="number" min="0" max="10000" step="0.1" placeholder="35">
+                    </label>
+                    <label class="field">
+                      <span>Fat <small>g</small></span>
+                      <input id="food-fat" name="fat" type="number" min="0" max="10000" step="0.1" placeholder="18">
+                    </label>
+                    <label class="field">
+                      <span>Fiber <small>g</small></span>
+                      <input id="food-fiber" name="fiber" type="number" min="0" max="10000" step="0.1" placeholder="7">
+                    </label>
+                    <label class="field field-wide">
+                      <span>Notes <small>optional</small></span>
+                      <textarea id="food-notes" name="notes" rows="3" maxlength="1000" placeholder="Anything you'd like to remember?"></textarea>
+                    </label>
+                  </div>
+                  <div class="form-fields" id="workout-fields" role="tabpanel" aria-labelledby="workout-tab" hidden>
+                    <label class="field field-wide">
+                      <span>Movement or workout</span>
+                      <input id="workout-title" name="title" type="text" maxlength="160" placeholder="e.g. Evening walk" required>
+                    </label>
+                    <label class="field">
+                      <span>Exercise</span>
+                      <input id="workout-exercise" name="exercise" type="text" maxlength="160" placeholder="e.g. Walking">
+                    </label>
+                    <label class="field">
+                      <span>Category</span>
+                      <select id="workout-category" name="category">
+                        <option>General</option><option>Cardio</option><option>Legs</option><option>Back</option><option>Chest</option><option>Shoulders</option><option>Arms</option><option>Core</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span>Sets</span>
+                      <input id="workout-sets" name="sets" type="number" min="0" max="1000" step="1" placeholder="3">
+                    </label>
+                    <label class="field">
+                      <span>Reps</span>
+                      <input id="workout-reps" name="reps" type="number" min="0" max="10000" step="1" placeholder="10">
+                    </label>
+                    <label class="field">
+                      <span>Weight <small>optional</small></span>
+                      <input id="workout-weight" name="weight" type="text" maxlength="80" placeholder="Bodyweight">
+                    </label>
+                    <label class="field">
+                      <span>Energy <small>kcal</small></span>
+                      <input id="workout-calories" name="caloriesBurned" type="number" min="0" max="100000" step="1" placeholder="150">
+                    </label>
+                  </div>
+                  <div class="form-footer">
+                    <p class="form-message">You can adjust your details any time.</p>
+                    <div class="form-actions">
+                      <button type="button" class="button button-quiet" id="cancel-edit" hidden>Cancel</button>
+                      <button type="submit" class="button button-primary" id="save-button">Save check-in <span aria-hidden="true">→</span></button>
+                    </div>
+                  </div>
+                </form>
+              </article>
+              <aside class="panel tip-panel">
+                <span class="tip-icon" aria-hidden="true">✦</span>
+                <p class="eyebrow">A NOTE ABOUT ESTIMATES</p>
+                <h2>Keep it human.</h2>
+                <p>Gymni saves the details you enter. This website does not analyze photos or provide AI-generated nutrition or workout estimates; the backend currently provides secure record storage only.</p>
+              </aside>
+            </div>
+          </section>
+
+          <section class="view" id="view-activity" aria-labelledby="activity-title" hidden>
+            <div class="page-heading">
+              <div>
+                <p class="eyebrow">YOUR JOURNEY SO FAR</p>
+                <h1>Activity<span class="heading-dot">.</span></h1>
+                <p class="heading-subtitle">A personal record of meals and movement, all in one place.</p>
+              </div>
+              <button class="button button-primary heading-action" data-go="log"><span aria-hidden="true">＋</span> Add a log</button>
+            </div>
+            <article class="panel activity-panel">
+              <div class="panel-heading activity-heading">
+                <div>
+                  <p class="eyebrow">YOUR CHECK-INS</p>
+                  <h2>Every step counts</h2>
+                </div>
+                <div class="filter-group" role="group" aria-label="Filter activity">
+                  <button class="filter-button is-selected" data-filter="all" aria-pressed="true">All</button>
+                  <button class="filter-button" data-filter="food" aria-pressed="false">Food</button>
+                  <button class="filter-button" data-filter="workout" aria-pressed="false">Movement</button>
+                </div>
+              </div>
+              <div class="entry-list" id="activity-list"></div>
+              <div class="empty-state" id="activity-empty" hidden>
+                <span aria-hidden="true">✦</span>
+                <p>No check-ins here just yet.</p>
+                <button class="text-button" data-go="log">Add your first log →</button>
+              </div>
+            </article>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Main navigation">
+      <button class="nav-link is-active" data-view="overview" aria-current="page">
+        <span class="nav-icon" aria-hidden="true">◫</span><span>Overview</span>
+      </button>
+      <button class="nav-link" data-view="log">
+        <span class="nav-icon" aria-hidden="true">＋</span><span>Add log</span>
+      </button>
+      <button class="nav-link" data-view="activity">
+        <span class="nav-icon" aria-hidden="true">↗</span><span>Activity</span>
+      </button>
+    </nav>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

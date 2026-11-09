@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title description">
+  <title id="title">Gymni component interaction flowchart</title>
+  <desc id="description">A user interacts with the responsive Gymni website. The website validates and serializes food or workout entries as JSON, then sends HTTPS REST requests to the FastAPI backend. FastAPI uses SQLAlchemy to read and write PostgreSQL. Responses return to the website and update the dashboard and activity history.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#161721"/>
+      <stop offset="1" stop-color="#101218"/>
+    </linearGradient>
+    <linearGradient id="client" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#29263d"/>
+      <stop offset="1" stop-color="#201e30"/>
+    </linearGradient>
+    <linearGradient id="backend" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#19322e"/>
+      <stop offset="1" stop-color="#192722"/>
+    </linearGradient>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a397ff"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#73d8b2"/>
+    </marker>
+    <style>
+      .title { font: 700 29px system-ui, sans-serif; fill: #f1f0f8; }
+      .subtitle { font: 14px system-ui, sans-serif; fill: #a2a3b0; }
+      .section { font: 700 12px system-ui, sans-serif; letter-spacing: 1.8px; fill: #a397ff; }
+      .section-green { font: 700 12px system-ui, sans-serif; letter-spacing: 1.8px; fill: #73d8b2; }
+      .box-title { font: 700 16px system-ui, sans-serif; fill: #f1f0f8; }
+      .box-copy { font: 12px system-ui, sans-serif; fill: #b1b1bf; }
+      .label { font: 11px system-ui, sans-serif; fill: #c3bbff; }
+      .label-green { font: 11px system-ui, sans-serif; fill: #9de3c7; }
+      .small { font: 11px system-ui, sans-serif; fill: #898b9c; }
+    </style>
+  </defs>
+  <rect width="1280" height="760" rx="20" fill="url(#background)"/>
+  <text x="64" y="67" class="title">How Gymni's components work together</text>
+  <text x="64" y="96" class="subtitle">A responsive website sends food and workout logs to the existing API and database.</text>
+  <rect x="49" y="126" width="574" height="523" rx="20" fill="#171821" stroke="#38344e"/>
+  <rect x="643" y="126" width="588" height="523" rx="20" fill="#151a19" stroke="#31423b"/>
+  <text x="75" y="160" class="section">GYMNI WEBSITE · PHONE / TABLET / DESKTOP</text>
+  <text x="669" y="160" class="section-green">GYMNI BACKEND · HTTPS API + DATA</text>
+
+  <rect x="80" y="194" width="230" height="100" rx="14" fill="url(#client)" stroke="#665a9f"/>
+  <text x="101" y="224" class="box-title">User</text>
+  <text x="101" y="247" class="box-copy">Enters food or workout details</text>
+  <text x="101" y="267" class="box-copy">on a phone, tablet, or computer</text>
+
+  <rect x="367" y="194" width="220" height="100" rx="14" fill="url(#client)" stroke="#665a9f"/>
+  <text x="388" y="224" class="box-title">Responsive web UI</text>
+  <text x="388" y="247" class="box-copy">Entry form · dashboard</text>
+  <text x="388" y="267" class="box-copy">Activity · edit / delete</text>
+  <path d="M310 243 H360" fill="none" stroke="#a397ff" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+
+  <rect x="367" y="355" width="220" height="104" rx="14" fill="#22212f" stroke="#665a9f"/>
+  <text x="388" y="385" class="box-title">API client + validation</text>
+  <text x="388" y="408" class="box-copy">Serializes record to JSON text</text>
+  <text x="388" y="428" class="box-copy">Checks errors and renders response</text>
+  <path d="M477 294 V347" fill="none" stroke="#a397ff" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <text x="490" y="326" class="label">form input</text>
+
+  <rect x="80" y="355" width="230" height="104" rx="14" fill="#23202c" stroke="#705867"/>
+  <text x="101" y="385" class="box-title">Food / workout record</text>
+  <text x="101" y="408" class="box-copy">category: food | workout</text>
+  <text x="101" y="428" class="box-copy">content: JSON-encoded fields</text>
+  <path d="M367 407 H318" fill="none" stroke="#a397ff" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <text x="324" y="394" class="label">validate</text>
+
+  <rect x="80" y="525" width="507" height="83" rx="14" fill="#1c1c26" stroke="#454051"/>
+  <text x="101" y="554" class="box-title">Render and update the interface</text>
+  <text x="101" y="578" class="box-copy">GET results update daily totals, weekly view, and activity history.</text>
+
+  <rect x="678" y="194" width="225" height="105" rx="14" fill="url(#backend)" stroke="#4a7967"/>
+  <text x="700" y="225" class="box-title">FastAPI routes</text>
+  <text x="700" y="248" class="box-copy">GET /logs/ · POST /logs/</text>
+  <text x="700" y="269" class="box-copy">PUT /logs/{id} · DELETE /logs/{id}</text>
+
+  <rect x="975" y="194" width="225" height="105" rx="14" fill="url(#backend)" stroke="#4a7967"/>
+  <text x="997" y="225" class="box-title">SQLAlchemy ORM</text>
+  <text x="997" y="248" class="box-copy">Maps API log records to</text>
+  <text x="997" y="269" class="box-copy">database operations</text>
+  <path d="M903 246 H967" fill="none" stroke="#73d8b2" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+
+  <rect x="975" y="375" width="225" height="105" rx="14" fill="#202c28" stroke="#4a7967"/>
+  <text x="997" y="406" class="box-title">PostgreSQL database</text>
+  <text x="997" y="429" class="box-copy">interaction_logs table</text>
+  <text x="997" y="450" class="box-copy">ID · timestamp · category · content</text>
+  <path d="M1087 299 V367" fill="none" stroke="#73d8b2" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <text x="1099" y="340" class="label-green">read / write</text>
+
+  <path d="M587 407 H632 V246 H670" fill="none" stroke="#a397ff" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <text x="599" y="395" class="label">HTTPS REST</text>
+  <text x="599" y="412" class="small">JSON request</text>
+
+  <path d="M678 281 H650 V565 H595" fill="none" stroke="#73d8b2" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <text x="652" y="518" class="label-green">JSON response</text>
+  <path d="M975 455 H938 V572 H595" fill="none" stroke="#73d8b2" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow-green)"/>
+  <text x="816" y="594" class="small">Persisted data returned to the website and shown to the user</text>
+
+  <rect x="678" y="525" width="522" height="83" rx="14" fill="#20201f" stroke="#675841"/>
+  <text x="700" y="554" class="box-title">Current boundary: no AI endpoint or authentication</text>
+  <text x="700" y="578" class="box-copy">The website saves user-entered records; photo analysis is not part of this API.</text>
+
+  <text x="64" y="700" class="small">API contract: GET supports skip / limit (maximum 100 per page); writes send category and content.</text>
+  <text x="64" y="722" class="small">Use the deployed API base URL in config.js and allow the website origin in backend CORS_ORIGINS.</text>
+</svg>
