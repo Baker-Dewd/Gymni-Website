@@ -12,7 +12,9 @@ python3 -m http.server 5174
 
 Then visit `http://localhost:5174`. Set `window.GYMNI_API_BASE_URL` in [config.js](./config.js) to the backend's public `api_base_url` Terraform output before using the site. The initial value matches the API URL used by the existing app; change it if your deployment uses a different domain.
 
-For production, publish the contents of this folder on a static HTTPS host. Set the backend's `frontend_origins` / `CORS_ORIGINS` to the exact HTTPS origin serving this website. The backend currently has no authentication; do not treat CORS as access control.
+For production, the Terraform configuration in `Gymni-Backend/terraform` builds this folder into its own container, listening on port `5174` on the private Docker network. Varnish routes the configured website hostname to that container, and Caddy provides public HTTPS. The deployment sets `config.js` to the configured backend API URL and adds the website's HTTPS origin to the backend's CORS allowlist. The backend currently has no authentication; do not treat CORS as access control.
+
+The included [Dockerfile](./Dockerfile) runs the same dependency-free static server on port `5174` used by the local development instructions.
 
 ## Backend contract
 
@@ -28,3 +30,5 @@ The `content` string uses the food/workout fields already written by the app. Ba
 ## Component flow
 
 Open [flowchart.svg](./flowchart.svg) for the visual view of how the user interface, API client, FastAPI routes, ORM, and database interact.
+
+Open [architecture.svg](./architecture.svg) for the deployment technologies and network paths, including Terraform, Docker Compose, Caddy, Varnish, the website container, API, and database.
